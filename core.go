@@ -17,11 +17,9 @@ import (
 	Like replacing:	s += fmt.Sprintf("%v ", v)
 	with:			s += fmt.Sprintf("%+v ", v)
 	To add struct field names
-}
 */
 func Log(args ...interface{}) {
 	var s string = ""
-
 	for _, v := range args {
 		s += fmt.Sprintf("%v ", v)
 	}
