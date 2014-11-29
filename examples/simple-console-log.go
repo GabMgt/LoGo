@@ -1,5 +1,9 @@
 package main
 
+/*
+	Example of the simplest usage of LoGo
+*/
+
 import (
 	logo "github.com/nurza/logo"
 )

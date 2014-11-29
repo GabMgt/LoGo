@@ -4,6 +4,11 @@ import (
 	"fmt"
 )
 
+/*
+	This function is the simpliest form to write logs with LoGo.
+
+	It writes variables in the console like fmt.Println()
+*/
 func Log(args ...interface{}) {
 	var s string = ""
 
