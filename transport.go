@@ -1,8 +1,6 @@
 package logo
 
-import (
-	"./transport/console"
-)
+import ()
 
 /*
 	List of transports
@@ -26,7 +24,7 @@ func (l *Logger) AddTransport(t int) (lo *Logger) {
 	var newTransport Transport
 	switch t {
 	case Console:
-		newTransport.Write = console.Write
+		newTransport.Write = ConsoleWrite
 		l.Transports = append(l.Transports, newTransport)
 	case File: // Todo
 	default:
