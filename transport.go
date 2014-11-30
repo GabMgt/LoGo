@@ -14,21 +14,23 @@ const (
 	A Transport struct
 */
 type Transport struct {
-	Write func(string)
+	Type              int
+	Write             func(string)
+	ConsoleColorTheme *ConsoleColorTheme
 }
 
 /*
 	Attach a new Transport to a Logger
 */
-func (l *Logger) AddTransport(t int) (lo *Logger) {
+func (l *Logger) AddTransport(t int) *Transport {
 	var newTransport Transport
+
 	switch t {
 	case Console:
+		newTransport.Type = Console
 		newTransport.Write = ConsoleWrite
 		l.Transports = append(l.Transports, newTransport)
-	case File: // Todo
-	default:
 	}
 
-	return l
+	return &(l.Transports[len(l.Transports)-1]) // Return the pointer of last Transport of the Logger
 }

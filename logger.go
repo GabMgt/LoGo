@@ -28,9 +28,20 @@ type Logger struct {
 	Log something with a parameterizable logging level
 */
 func (l *Logger) Log(level int, args ...interface{}) {
-	var s string = fmt.Sprintf("%v", args...)
-	for _, t := range l.Transports {
-		t.Write(s)
+	var s string = fmt.Sprintf("%v", args...) // The formated string that will be used for logging
+	var sc string = ""                        // The formated string with color
+	for _, t := range l.Transports {          // List all transports to apply color
+		switch t.Type {
+		case Console:
+			if t.ConsoleColorTheme != nil {
+				sc = ApplyConsoleColor(s, level, *t.ConsoleColorTheme)
+			} else {
+				sc = s
+			}
+		default:
+			sc = s
+		}
+		t.Write(sc) // Call the transport Write() function
 	}
 }
 
