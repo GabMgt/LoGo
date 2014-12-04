@@ -2,6 +2,7 @@ package logo
 
 import (
 	"fmt"
+	"time"
 )
 
 /*
@@ -22,6 +23,7 @@ const (
 */
 type Logger struct {
 	Transports []Transport
+	Time       string
 }
 
 /*
@@ -51,6 +53,12 @@ func (l *Logger) Log(level int, args ...interface{}) {
 		default:
 			sc = s
 		}
+
+		// Add time if exists
+		if l.Time != "" {
+			sc = time.Now().Format(l.Time) + " " + sc
+		}
+
 		t.Write(sc) // Call the transport Write() function
 	}
 }
