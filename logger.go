@@ -24,6 +24,13 @@ const (
 type Logger struct {
 	Transports []Transport
 	Time       string
+	SillyL     bool
+	DebugL     bool
+	VerboseL   bool
+	InfoL      bool
+	WarnL      bool
+	ErrorL     bool
+	CriticalL  bool
 }
 
 /*
@@ -32,6 +39,38 @@ type Logger struct {
 func (l *Logger) Log(level int, args ...interface{}) {
 	var s string = ""  // The formated string that will be used for logging
 	var sc string = "" // The formated string with color
+
+	// Check if the logging level is enabled
+	switch level {
+	case Silly:
+		if !l.SillyL {
+			return
+		}
+	case Debug:
+		if !l.DebugL {
+			return
+		}
+	case Verbose:
+		if !l.VerboseL {
+			return
+		}
+	case Info:
+		if !l.InfoL {
+			return
+		}
+	case Warn:
+		if !l.WarnL {
+			return
+		}
+	case Error:
+		if !l.ErrorL {
+			return
+		}
+	case Critical:
+		if !l.CriticalL {
+			return
+		}
+	}
 
 	for _, v := range args {
 		s += fmt.Sprintf("%v ", v)
@@ -92,4 +131,69 @@ func (l *Logger) Error(args ...interface{}) {
 
 func (l *Logger) Critical(args ...interface{}) {
 	l.Log(Critical, args...)
+}
+
+/*
+	These functions disable or enable logging level :
+*/
+func (l *Logger) DisableAllLevels() *Logger {
+	l.SillyL = false
+	l.DebugL = false
+	l.VerboseL = false
+	l.InfoL = false
+	l.WarnL = false
+	l.ErrorL = false
+	l.CriticalL = false
+	return l
+}
+
+func (l *Logger) EnableAllLevels() *Logger {
+	l.SillyL = true
+	l.DebugL = true
+	l.VerboseL = true
+	l.InfoL = true
+	l.WarnL = true
+	l.ErrorL = true
+	l.CriticalL = true
+	return l
+}
+
+func (l *Logger) EnableLevel(level int) *Logger {
+	switch level {
+	case Silly:
+		l.SillyL = true
+	case Debug:
+		l.DebugL = true
+	case Verbose:
+		l.VerboseL = true
+	case Info:
+		l.InfoL = true
+	case Warn:
+		l.WarnL = true
+	case Error:
+		l.ErrorL = true
+	case Critical:
+		l.CriticalL = true
+	}
+	return l
+}
+
+func (l *Logger) DisableLevel(level int) *Logger {
+	switch level {
+	case Silly:
+		l.SillyL = false
+	case Debug:
+		l.DebugL = false
+	case Verbose:
+		l.VerboseL = false
+	case Info:
+		l.InfoL = false
+	case Warn:
+		l.WarnL = false
+	case Error:
+		l.ErrorL = false
+	case Critical:
+		l.CriticalL = false
+	}
+	return l
 }
