@@ -1,20 +1,12 @@
 package main
 
 /*
-	Example of the simplest usage of LoGo Logger
+	Example of a Logger with a Console transport
 */
 
 import (
 	logo "github.com/nurza/logo"
 )
-
-type SimpleStructure struct {
-	A string
-	B bool
-	C int
-	D float64
-	F byte
-}
 
 func main() {
 	var l logo.Logger            // Create a simple Logger

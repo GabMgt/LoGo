@@ -1,7 +1,7 @@
 package main
 
 /*
-	Example of the simplest usage of LoGo Logger
+	Example of a Logger with console colors
 */
 
 import (

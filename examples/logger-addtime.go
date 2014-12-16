@@ -1,7 +1,7 @@
 package main
 
 /*
-	Example of the simplest usage of LoGo Logger
+	Example of Logger with a time prefix
 */
 
 import (
