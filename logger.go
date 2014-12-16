@@ -82,14 +82,9 @@ func (l *Logger) Log(level int, args ...interface{}) {
 	}
 
 	for _, t := range l.Transports { // List all transports to apply color
-		switch t.Type {
-		case Console:
-			if t.ConsoleColorTheme != nil {
-				sc = ApplyConsoleColor(s, level, *t.ConsoleColorTheme)
-			} else {
-				sc = s
-			}
-		default:
+		if t.ConsoleColorTheme != nil {
+			sc = ApplyConsoleColor(s, level, *t.ConsoleColorTheme)
+		} else {
 			sc = s
 		}
 
@@ -98,7 +93,7 @@ func (l *Logger) Log(level int, args ...interface{}) {
 			sc = time.Now().Format(l.Time) + " " + sc
 		}
 
-		t.Write(sc) // Call the transport Write() function
+		t.Write(&t, sc) // Call the transport Write() function
 	}
 }
 

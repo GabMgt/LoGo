@@ -15,20 +15,26 @@ const (
 */
 type Transport struct {
 	Type              int
-	Write             func(string)
+	Write             func(*Transport, string)
 	ConsoleColorTheme *ConsoleColorTheme
+	Data              []interface{}
 }
 
 /*
 	Attach a new Transport to a Logger
 */
-func (l *Logger) AddTransport(t int) *Transport {
+func (l *Logger) AddTransport(t int, param ...interface{}) *Transport {
 	var newTransport Transport
 
 	switch t {
 	case Console:
 		newTransport.Type = Console
 		newTransport.Write = ConsoleWrite
+		l.Transports = append(l.Transports, newTransport)
+	case File:
+		newTransport.Type = File
+		newTransport.Write = FileWrite
+		newTransport.Data = []interface{}{param[0].(string)}
 		l.Transports = append(l.Transports, newTransport)
 	}
 
