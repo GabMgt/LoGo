@@ -19,5 +19,6 @@ func (t *Transport) AddColor(colorType int) {
 		t.ConsoleColorTheme = &defaultConsoleColorTheme
 	case HTMLColor:
 		t.HTMLColorTheme = &defaultHTMLColorTheme
+		t.Write(t, HTMLColorHeader)
 	}
 }

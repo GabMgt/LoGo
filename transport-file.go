@@ -5,12 +5,21 @@ package logo
 */
 
 import (
-	"io/ioutil"
+	"os"
 )
 
 /*
 	Write function of the transport
 */
 func FileWrite(t *Transport, s string) {
-	ioutil.WriteFile(t.Data[0].(string), []byte(s), 0664)
+	f, err := os.OpenFile(t.Data[0].(string), os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+	if err != nil {
+		panic(err)
+	}
+
+	defer f.Close()
+
+	if _, err = f.WriteString(s); err != nil {
+		panic(err)
+	}
 }

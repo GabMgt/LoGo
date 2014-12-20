@@ -38,26 +38,20 @@ const (
 	List of HTML Background Colors
 */
 const (
-	HTMLColorDefaultBackground      = "defbg"
-	HTMLColorBlackBackground        = "blabg"
-	HTMLColorRedBackground          = "redbg"
-	HTMLColorGreenBackground        = "grebg"
-	HTMLColorYellowBackground       = "yelbg"
-	HTMLColorBlueBackground         = "blubg"
-	HTMLColorMagentaBackground      = "magbg"
-	HTMLColorCyanBackground         = "cyabg"
-	HTMLColorLightGrayBackground    = "lgrabg"
-	HTMLColorDarkGrayBackground     = "darbg"
-	HTMLColorLightRedBackground     = "lrebg"
-	HTMLColorLightGreenBackground   = "lgrebg"
-	HTMLColorLightYellowBackground  = "lyebg"
-	HTMLColorLightBlueBackground    = "lblbg"
-	HTMLColorLightMagentaBackground = "lmabg"
-	HTMLColorLightCyanBackground    = "lcybg"
-	HTMLColorWhiteBackground        = "whibg"
+	HTMLColorDefaultBackground   = "defbg"
+	HTMLColorBlackBackground     = "blabg"
+	HTMLColorRedBackground       = "redbg"
+	HTMLColorGreenBackground     = "grebg"
+	HTMLColorYellowBackground    = "yelbg"
+	HTMLColorBlueBackground      = "blubg"
+	HTMLColorMagentaBackground   = "magbg"
+	HTMLColorCyanBackground      = "cyabg"
+	HTMLColorLightGrayBackground = "lgrbg"
+	HTMLColorDarkGrayBackground  = "dgrbg"
+	HTMLColorWhiteBackground     = "whibg"
 )
 const (
-	HTMLColorDefaultBackgroundCSS   = "black"
+	HTMLColorDefaultBackgroundCSS   = "LightSteelBlue"
 	HTMLColorBlackBackgroundCSS     = "black"
 	HTMLColorRedBackgroundCSS       = "red"
 	HTMLColorGreenBackgroundCSS     = "green"
@@ -74,8 +68,10 @@ const (
 	List of HTML Text Effects
 */
 const (
-	Bold       = "bold"
-	Underlined = "underln"
+	HTMLColorBold       = "bold"
+	HTMLColorBolder     = "bolder"
+	HTMLColorUnderlined = "underln"
+	HTMLColorItalic     = "italic"
 )
 
 /*
@@ -101,18 +97,57 @@ type HTMLColorTheme struct {
 }
 
 /*
-	List of available theme for console logging (At the moment there is only one, but more are coming)
+	List of available theme for HTML logging (At the moment there is only one, but more are coming)
 */
 var (
 	defaultHTMLColorTheme = HTMLColorTheme{
-		HTMLColorAspect{HTMLColorDarkGrayText, HTMLColorDefaultBackground, []string{}}, // Silly
-		HTMLColorAspect{HTMLColorDefaultText, HTMLColorDefaultBackground, []string{}},  // Debug
-		HTMLColorAspect{HTMLColorGreenText, HTMLColorDefaultBackground, []string{}},    // Verbose
-		HTMLColorAspect{HTMLColorBlueText, HTMLColorDefaultBackground, []string{}},     // Info
-		HTMLColorAspect{HTMLColorYellowText, HTMLColorDefaultBackground, []string{}},   // Warn
-		HTMLColorAspect{HTMLColorRedText, HTMLColorDefaultBackground, []string{}},      // Error
-		HTMLColorAspect{HTMLColorDefaultText, HTMLColorRedBackground, []string{Bold}},  // Critical
+		HTMLColorAspect{HTMLColorDarkGrayText, HTMLColorDefaultBackground, []string{}},       // Silly
+		HTMLColorAspect{HTMLColorDefaultText, HTMLColorDefaultBackground, []string{}},        // Debug
+		HTMLColorAspect{HTMLColorGreenText, HTMLColorDefaultBackground, []string{}},          // Verbose
+		HTMLColorAspect{HTMLColorBlueText, HTMLColorDefaultBackground, []string{}},           // Info
+		HTMLColorAspect{HTMLColorYellowText, HTMLColorDefaultBackground, []string{}},         // Warn
+		HTMLColorAspect{HTMLColorRedText, HTMLColorDefaultBackground, []string{}},            // Error
+		HTMLColorAspect{HTMLColorWhiteText, HTMLColorRedBackground, []string{HTMLColorBold}}, // Critical
 	}
+)
+
+/*
+	HTML Header for CSS
+*/
+var (
+	HTMLColorHeader string = `
+<style>
+*{background-color: ` + HTMLColorDefaultBackgroundCSS + `;}
+.` + HTMLColorDefaultText + `{color: ` + HTMLColorDefaultTextCSS + `;}
+.` + HTMLColorBlackText + `{color: ` + HTMLColorBlackTextCSS + `;}
+.` + HTMLColorRedText + `{color: ` + HTMLColorRedTextCSS + `;}
+.` + HTMLColorGreenText + `{color: ` + HTMLColorGreenTextCSS + `;}
+.` + HTMLColorYellowText + `{color: ` + HTMLColorYellowTextCSS + `;}
+.` + HTMLColorBlueText + `{color: ` + HTMLColorBlueTextCSS + `;}
+.` + HTMLColorMagentaText + `{color: ` + HTMLColorMagentaTextCSS + `;}
+.` + HTMLColorCyanText + `{color: ` + HTMLColorCyanTextCSS + `;}
+.` + HTMLColorLightGrayText + `{color: ` + HTMLColorLightGrayTextCSS + `;}
+.` + HTMLColorDarkGrayText + `{color: ` + HTMLColorDarkGrayTextCSS + `;}
+.` + HTMLColorWhiteText + `{color: ` + HTMLColorWhiteTextCSS + `;}
+
+.` + HTMLColorDefaultBackground + `{background-color: ` + HTMLColorDefaultBackgroundCSS + `;}
+.` + HTMLColorBlackBackground + `{background-color: ` + HTMLColorBlackBackgroundCSS + `;}
+.` + HTMLColorRedBackground + `{background-color: ` + HTMLColorRedBackgroundCSS + `;}
+.` + HTMLColorGreenBackground + `{background-color: ` + HTMLColorGreenBackgroundCSS + `;}
+.` + HTMLColorYellowBackground + `{background-color: ` + HTMLColorYellowBackgroundCSS + `;}
+.` + HTMLColorBlueBackground + `{background-color: ` + HTMLColorBlueBackgroundCSS + `;}
+.` + HTMLColorMagentaBackground + `{background-color: ` + HTMLColorMagentaBackgroundCSS + `;}
+.` + HTMLColorCyanBackground + `{background-color: ` + HTMLColorCyanBackgroundCSS + `;}
+.` + HTMLColorLightGrayBackground + `{background-color: ` + HTMLColorLightGrayBackgroundCSS + `;}
+.` + HTMLColorDarkGrayBackground + `{background-color: ` + HTMLColorDarkGrayBackgroundCSS + `;}
+.` + HTMLColorWhiteBackground + `{background-color: ` + HTMLColorWhiteBackgroundCSS + `;}
+
+.` + HTMLColorBold + `{font-weight: bold;}
+.` + HTMLColorBolder + `{font-weight: bolder;}
+.` + HTMLColorUnderlined + `{text-decoration: underline;}
+.` + HTMLColorItalic + `{font-style: italic;}
+</style>
+`
 )
 
 /*
@@ -146,7 +181,7 @@ func ApplyHTMLColor(s string, level int, c HTMLColorTheme) string {
 	sr += strings.Join(ct.TextEffect, " ") // Add effects
 	sr += "\">"
 	sr += s // Add the log
-	sr += "</div>"
+	sr += "</div>\n"
 
 	return sr // Return result
 }

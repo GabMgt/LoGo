@@ -5,14 +5,13 @@ package main
 */
 
 import (
-	".."
-	// logo "github.com/nurza/logo"
+	logo "github.com/nurza/logo"
 )
 
 func main() {
 	var l logo.Logger                          // Create a simple Logger
-	t := l.AddTransport(logo.File, "test.log") // Add a transport: Console
-	t.AddColor(logo.HTMLColor)                 // Add a color: Console color
+	t := l.AddTransport(logo.File, "log.html") // Add a transport: File
+	t.AddColor(logo.HTMLColor)                 // Add a color: HTML color
 	l.EnableAllLevels()                        // Enable all logging levels
 
 	l.Silly("Silly")
