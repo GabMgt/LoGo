@@ -1,7 +1,7 @@
 LoGo
 ====
 
-Library for logging in Go.
+LoGo is a Golang logging library.
 
 It is inspired by : [Winston](https://github.com/flatiron/winston)
 

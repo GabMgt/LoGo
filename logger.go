@@ -24,6 +24,7 @@ const (
 type Logger struct {
 	Transports []Transport
 	Time       string
+	Prefix     string
 	SillyL     bool
 	DebugL     bool
 	VerboseL   bool
@@ -72,6 +73,7 @@ func (l *Logger) Log(level int, args ...interface{}) {
 		}
 	}
 
+	// Format the message
 	for _, v := range args {
 		s += fmt.Sprintf("%v ", v)
 	}
@@ -81,14 +83,25 @@ func (l *Logger) Log(level int, args ...interface{}) {
 		s = ""
 	}
 
-	for _, t := range l.Transports { // List all transports to apply color
+	// List all transports to apply color, prefix and time
+	for _, t := range l.Transports {
+		// Apply color
 		if t.ConsoleColorTheme != nil {
 			sc = ApplyConsoleColor(s, level, *t.ConsoleColorTheme)
 		} else {
 			sc = s
 		}
 
-		// Add time if exists
+		// Add prefix
+		if l.Prefix != "" {
+			if t.ConsoleColorTheme != nil {
+				sc = ApplyConsoleColor(l.Prefix+sc, level, *t.ConsoleColorTheme)
+			} else {
+				sc = l.Prefix + sc
+			}
+		}
+
+		// Add time
 		if l.Time != "" {
 			sc = time.Now().Format(l.Time) + " " + sc
 		}
@@ -190,5 +203,13 @@ func (l *Logger) DisableLevel(level int) *Logger {
 	case Critical:
 		l.CriticalL = false
 	}
+	return l
+}
+
+/*
+	Set a prefix
+*/
+func (l *Logger) SetPrefix(s string) *Logger {
+	l.Prefix = s
 	return l
 }
