@@ -7,6 +7,7 @@ import ()
 */
 const (
 	ConsoleColor = iota
+	HTMLColor    = iota
 )
 
 /*
@@ -16,5 +17,7 @@ func (t *Transport) AddColor(colorType int) {
 	switch colorType {
 	case ConsoleColor:
 		t.ConsoleColorTheme = &defaultConsoleColorTheme
+	case HTMLColor:
+		t.HTMLColorTheme = &defaultHTMLColorTheme
 	}
 }

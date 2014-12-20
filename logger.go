@@ -88,6 +88,8 @@ func (l *Logger) Log(level int, args ...interface{}) {
 		// Apply color
 		if t.ConsoleColorTheme != nil {
 			sc = ApplyConsoleColor(s, level, *t.ConsoleColorTheme)
+		} else if t.HTMLColorTheme != nil {
+			sc = ApplyHTMLColor(s, level, *t.HTMLColorTheme)
 		} else {
 			sc = s
 		}
@@ -96,6 +98,8 @@ func (l *Logger) Log(level int, args ...interface{}) {
 		if l.Prefix != "" {
 			if t.ConsoleColorTheme != nil {
 				sc = ApplyConsoleColor(l.Prefix+sc, level, *t.ConsoleColorTheme)
+			} else if t.HTMLColorTheme != nil {
+				sc = ApplyHTMLColor(l.Prefix+sc, level, *t.HTMLColorTheme)
 			} else {
 				sc = l.Prefix + sc
 			}

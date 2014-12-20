@@ -17,6 +17,7 @@ type Transport struct {
 	Type              int
 	Write             func(*Transport, string)
 	ConsoleColorTheme *ConsoleColorTheme
+	HTMLColorTheme    *HTMLColorTheme
 	Data              []interface{}
 }
 

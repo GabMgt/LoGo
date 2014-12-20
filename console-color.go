@@ -8,58 +8,58 @@ import (
 	List of Console Text Colors
 */
 const (
-	DefaultText      = "\x1b[39m"
-	BlackText        = "\x1b[30m"
-	RedText          = "\x1b[31m"
-	GreenText        = "\x1b[32m"
-	YellowText       = "\x1b[33m"
-	BlueText         = "\x1b[34m"
-	MagentaText      = "\x1b[35m"
-	CyanText         = "\x1b[36m"
-	LightGrayText    = "\x1b[37m"
-	DarkGrayText     = "\x1b[90m"
-	LightRedText     = "\x1b[91m"
-	LightGreenText   = "\x1b[92m"
-	LightYellowText  = "\x1b[93m"
-	LightBlueText    = "\x1b[94m"
-	LightMagentaText = "\x1b[95m"
-	LightCyanText    = "\x1b[96m"
-	WhiteText        = "\x1b[97m"
+	ConsoleColorDefaultText      = "\x1b[39m"
+	ConsoleColorBlackText        = "\x1b[30m"
+	ConsoleColorRedText          = "\x1b[31m"
+	ConsoleColorGreenText        = "\x1b[32m"
+	ConsoleColorYellowText       = "\x1b[33m"
+	ConsoleColorBlueText         = "\x1b[34m"
+	ConsoleColorMagentaText      = "\x1b[35m"
+	ConsoleColorCyanText         = "\x1b[36m"
+	ConsoleColorLightGrayText    = "\x1b[37m"
+	ConsoleColorDarkGrayText     = "\x1b[90m"
+	ConsoleColorLightRedText     = "\x1b[91m"
+	ConsoleColorLightGreenText   = "\x1b[92m"
+	ConsoleColorLightYellowText  = "\x1b[93m"
+	ConsoleColorLightBlueText    = "\x1b[94m"
+	ConsoleColorLightMagentaText = "\x1b[95m"
+	ConsoleColorLightCyanText    = "\x1b[96m"
+	ConsoleColorWhiteText        = "\x1b[97m"
 )
 
 /*
 	List of Console Background Colors
 */
 const (
-	DefaultBackground      = "\x1b[49m"
-	BlackBackground        = "\x1b[40m"
-	RedBackground          = "\x1b[41m"
-	GreenBackground        = "\x1b[42m"
-	YellowBackground       = "\x1b[43m"
-	BlueBackground         = "\x1b[44m"
-	MagentaBackground      = "\x1b[45m"
-	CyanBackground         = "\x1b[46m"
-	LightGrayBackground    = "\x1b[47m"
-	DarkGrayBackground     = "\x1b[100m"
-	LightRedBackground     = "\x1b[101m"
-	LightGreenBackground   = "\x1b[102m"
-	LightYellowBackground  = "\x1b[103m"
-	LightBlueBackground    = "\x1b[104m"
-	LightMagentaBackground = "\x1b[105m"
-	LightCyanBackground    = "\x1b[106m"
-	WhiteBackground        = "\x1b[107m"
+	ConsoleColorDefaultBackground      = "\x1b[49m"
+	ConsoleColorBlackBackground        = "\x1b[40m"
+	ConsoleColorRedBackground          = "\x1b[41m"
+	ConsoleColorGreenBackground        = "\x1b[42m"
+	ConsoleColorYellowBackground       = "\x1b[43m"
+	ConsoleColorBlueBackground         = "\x1b[44m"
+	ConsoleColorMagentaBackground      = "\x1b[45m"
+	ConsoleColorCyanBackground         = "\x1b[46m"
+	ConsoleColorLightGrayBackground    = "\x1b[47m"
+	ConsoleColorDarkGrayBackground     = "\x1b[100m"
+	ConsoleColorLightRedBackground     = "\x1b[101m"
+	ConsoleColorLightGreenBackground   = "\x1b[102m"
+	ConsoleColorLightYellowBackground  = "\x1b[103m"
+	ConsoleColorLightBlueBackground    = "\x1b[104m"
+	ConsoleColorLightMagentaBackground = "\x1b[105m"
+	ConsoleColorLightCyanBackground    = "\x1b[106m"
+	ConsoleColorWhiteBackground        = "\x1b[107m"
 )
 
 /*
 	List of Console Text Effects
 */
 const (
-	Bold       = "\x1b[1m"
-	Dim        = "\x1b[2m"
-	Underlined = "\x1b[4m"
-	Blink      = "\x1b[5m"
-	Reverse    = "\x1b[7m"
-	Hidden     = "\x1b[8m"
+	ConsoleColorBold       = "\x1b[1m"
+	ConsoleColorDim        = "\x1b[2m"
+	ConsoleColorUnderlined = "\x1b[4m"
+	ConsoleColorBlink      = "\x1b[5m"
+	ConsoleColorReverse    = "\x1b[7m"
+	ConsoleColorHidden     = "\x1b[8m"
 )
 
 /*
@@ -89,13 +89,13 @@ type ConsoleColorTheme struct {
 */
 var (
 	defaultConsoleColorTheme = ConsoleColorTheme{
-		ConsoleColorAspect{DarkGrayText, DefaultBackground, []string{}},    // Silly
-		ConsoleColorAspect{DefaultText, DefaultBackground, []string{}},     // Debug
-		ConsoleColorAspect{LightGreenText, DefaultBackground, []string{}},  // Verbose
-		ConsoleColorAspect{LightBlueText, DefaultBackground, []string{}},   // Info
-		ConsoleColorAspect{LightYellowText, DefaultBackground, []string{}}, // Warn
-		ConsoleColorAspect{LightRedText, DefaultBackground, []string{}},    // Error
-		ConsoleColorAspect{DefaultText, RedBackground, []string{Bold}},     // Critical
+		ConsoleColorAspect{ConsoleColorDarkGrayText, ConsoleColorDefaultBackground, []string{}},    // Silly
+		ConsoleColorAspect{ConsoleColorDefaultText, ConsoleColorDefaultBackground, []string{}},     // Debug
+		ConsoleColorAspect{ConsoleColorLightGreenText, ConsoleColorDefaultBackground, []string{}},  // Verbose
+		ConsoleColorAspect{ConsoleColorLightBlueText, ConsoleColorDefaultBackground, []string{}},   // Info
+		ConsoleColorAspect{ConsoleColorLightYellowText, ConsoleColorDefaultBackground, []string{}}, // Warn
+		ConsoleColorAspect{ConsoleColorLightRedText, ConsoleColorDefaultBackground, []string{}},    // Error
+		ConsoleColorAspect{ConsoleColorDefaultText, ConsoleColorRedBackground, []string{Bold}},     // Critical
 	}
 )
 
