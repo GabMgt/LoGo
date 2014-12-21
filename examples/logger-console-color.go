@@ -1,7 +1,7 @@
 package main
 
 /*
-	Example of a Logger with console colors
+	Example of a Logger with Console colors
 */
 
 import (

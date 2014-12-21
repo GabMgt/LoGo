@@ -1,7 +1,7 @@
 package main
 
 /*
-	Example of a Logger with a Console transport
+	Example of a Logger with a File transport
 */
 
 import (
