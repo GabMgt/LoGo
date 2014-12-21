@@ -22,24 +22,32 @@ const (
 	A Logger struct
 */
 type Logger struct {
-	Transports []Transport
-	Time       string
-	Prefix     string
-	SillyL     bool
-	DebugL     bool
-	VerboseL   bool
-	InfoL      bool
-	WarnL      bool
-	ErrorL     bool
-	CriticalL  bool
+	Transports               []Transport
+	Time                     string
+	Prefix                   string
+	SillyL                   bool
+	DebugL                   bool
+	VerboseL                 bool
+	InfoL                    bool
+	WarnL                    bool
+	ErrorL                   bool
+	CriticalL                bool
+	SillyAttachedFunction    func(string)
+	DebugAttachedFunction    func(string)
+	VerboseAttachedFunction  func(string)
+	InfoAttachedFunction     func(string)
+	WarnAttachedFunction     func(string)
+	ErrorAttachedFunction    func(string)
+	CriticalAttachedFunction func(string)
 }
 
 /*
 	Log something with a parameterizable logging level
 */
 func (l *Logger) Log(level int, args ...interface{}) {
-	var s string = ""  // The formated string that will be used for logging
-	var sc string = "" // The formated string with color
+	var s string = ""                 // The formated string that will be used for logging
+	var sc string = ""                // The formated string with color
+	var attachedFunction func(string) // Attached function
 
 	// Check if the logging level is enabled
 	switch level {
@@ -110,7 +118,30 @@ func (l *Logger) Log(level int, args ...interface{}) {
 			sc = time.Now().Format(l.Time) + " " + sc
 		}
 
-		t.Write(&t, sc) // Call the transport Write() function
+		// Call the transport Write() function
+		t.Write(&t, sc)
+
+		// Call the attached function if exists
+		switch level {
+		case Silly:
+			attachedFunction = l.SillyAttachedFunction
+		case Debug:
+			attachedFunction = l.DebugAttachedFunction
+		case Verbose:
+			attachedFunction = l.VerboseAttachedFunction
+		case Info:
+			attachedFunction = l.InfoAttachedFunction
+		case Warn:
+			attachedFunction = l.WarnAttachedFunction
+		case Error:
+			attachedFunction = l.ErrorAttachedFunction
+		case Critical:
+			attachedFunction = l.CriticalAttachedFunction
+		}
+		if attachedFunction != nil {
+			attachedFunction(s)
+		}
+
 	}
 }
 
@@ -216,4 +247,23 @@ func (l *Logger) DisableLevel(level int) *Logger {
 func (l *Logger) SetPrefix(s string) *Logger {
 	l.Prefix = s
 	return l
+}
+
+func (l *Logger) AttachFunction(level int, function func(string)) {
+	switch level {
+	case Silly:
+		l.SillyAttachedFunction = function
+	case Debug:
+		l.DebugAttachedFunction = function
+	case Verbose:
+		l.VerboseAttachedFunction = function
+	case Info:
+		l.InfoAttachedFunction = function
+	case Warn:
+		l.WarnAttachedFunction = function
+	case Error:
+		l.ErrorAttachedFunction = function
+	case Critical:
+		l.CriticalAttachedFunction = function
+	}
 }
