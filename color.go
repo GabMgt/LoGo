@@ -16,7 +16,7 @@ const (
 func (t *Transport) AddColor(colorType int) {
 	switch colorType {
 	case ConsoleColor:
-		t.ConsoleColorTheme = &defaultConsoleColorTheme
+		t.ConsoleColorTheme = &darkConsoleColorTheme
 	case HTMLColor:
 		t.HTMLColorTheme = &defaultHTMLColorTheme
 		t.Write(t, HTMLColorHeader)

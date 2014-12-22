@@ -88,13 +88,22 @@ type ConsoleColorTheme struct {
 	List of available theme for console logging (At the moment there is only one, but more are coming)
 */
 var (
-	defaultConsoleColorTheme = ConsoleColorTheme{
+	darkConsoleColorTheme = ConsoleColorTheme{
 		ConsoleColorAspect{ConsoleColorDarkGrayText, ConsoleColorDefaultBackground, []string{}},            // Silly
 		ConsoleColorAspect{ConsoleColorDefaultText, ConsoleColorDefaultBackground, []string{}},             // Debug
 		ConsoleColorAspect{ConsoleColorLightGreenText, ConsoleColorDefaultBackground, []string{}},          // Verbose
 		ConsoleColorAspect{ConsoleColorLightBlueText, ConsoleColorDefaultBackground, []string{}},           // Info
 		ConsoleColorAspect{ConsoleColorLightYellowText, ConsoleColorDefaultBackground, []string{}},         // Warn
 		ConsoleColorAspect{ConsoleColorLightRedText, ConsoleColorDefaultBackground, []string{}},            // Error
+		ConsoleColorAspect{ConsoleColorDefaultText, ConsoleColorRedBackground, []string{ConsoleColorBold}}, // Critical
+	}
+	lightConsoleColorTheme = ConsoleColorTheme{
+		ConsoleColorAspect{ConsoleColorDarkGrayText, ConsoleColorDefaultBackground, []string{}},            // Silly
+		ConsoleColorAspect{ConsoleColorDefaultText, ConsoleColorDefaultBackground, []string{}},             // Debug
+		ConsoleColorAspect{ConsoleColorGreenText, ConsoleColorDefaultBackground, []string{}},               // Verbose
+		ConsoleColorAspect{ConsoleColorBlueText, ConsoleColorDefaultBackground, []string{}},                // Info
+		ConsoleColorAspect{ConsoleColorYellowText, ConsoleColorDefaultBackground, []string{}},              // Warn
+		ConsoleColorAspect{ConsoleColorRedText, ConsoleColorDefaultBackground, []string{}},                 // Error
 		ConsoleColorAspect{ConsoleColorDefaultText, ConsoleColorRedBackground, []string{ConsoleColorBold}}, // Critical
 	}
 )
