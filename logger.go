@@ -94,35 +94,23 @@ func (l *Logger) Log(level int, args ...interface{}) {
 
 	// List all transports to apply color, prefix and time
 	for _, t := range l.Transports {
-		// Apply color
-		if t.ConsoleColorTheme != nil {
-			sc = ApplyConsoleColor(s, level, *t.ConsoleColorTheme)
-		} else if t.HTMLColorTheme != nil {
-			sc = ApplyHTMLColor(s, level, *t.HTMLColorTheme)
-		} else {
-			sc = s
-		}
+		sc = s
 
 		// Add prefix
 		if l.Prefix != "" {
-			if t.ConsoleColorTheme != nil {
-				sc = ApplyConsoleColor(l.Prefix+sc, level, *t.ConsoleColorTheme)
-			} else if t.HTMLColorTheme != nil {
-				sc = ApplyHTMLColor(l.Prefix+sc, level, *t.HTMLColorTheme)
-			} else {
-				sc = l.Prefix + sc
-			}
+			sc = l.Prefix + sc
 		}
 
 		// Add suffix
 		if l.Suffix != "" {
-			if t.ConsoleColorTheme != nil {
-				sc += ApplyConsoleColor(l.Suffix, level, *t.ConsoleColorTheme)
-			} else if t.HTMLColorTheme != nil {
-				sc += ApplyHTMLColor(l.Suffix, level, *t.HTMLColorTheme)
-			} else {
-				sc += l.Suffix
-			}
+			sc += l.Suffix
+		}
+
+		// Apply color
+		if t.ConsoleColorTheme != nil {
+			sc = ApplyConsoleColor(sc, level, *t.ConsoleColorTheme)
+		} else if t.HTMLColorTheme != nil {
+			sc = ApplyHTMLColor(sc, level, *t.HTMLColorTheme)
 		}
 
 		// Add time
