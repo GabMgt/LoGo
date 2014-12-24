@@ -1,7 +1,7 @@
 package main
 
 /*
-	Example of a Logger with prefix
+	Example of a Logger with suffix
 */
 
 import (
@@ -13,7 +13,7 @@ func main() {
 	t := l.AddTransport(logo.Console) // Add a transport: Console
 	t.AddColor(logo.ConsoleColor)     // Add a color: Console color
 	l.EnableAllLevels()               // Enable all logging levels
-	l.SetPrefix("> ")                 // Set Prefix
+	l.SetSuffix("\t<")                // Set Suffix
 
 	l.Silly("Silly")
 	l.Debug("Debug")
@@ -23,7 +23,7 @@ func main() {
 	l.Error("Error")
 	l.Critical("Critical")
 
-	l.SetPrefix("") // Remove Prefix
+	l.SetSuffix("") // Remove Suffix
 
 	l.Silly("Silly")
 	l.Debug("Debug")

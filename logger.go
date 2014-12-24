@@ -25,6 +25,7 @@ type Logger struct {
 	Transports               []Transport
 	Time                     string
 	Prefix                   string
+	Suffix                   string
 	SillyL                   bool
 	DebugL                   bool
 	VerboseL                 bool
@@ -110,6 +111,17 @@ func (l *Logger) Log(level int, args ...interface{}) {
 				sc = ApplyHTMLColor(l.Prefix+sc, level, *t.HTMLColorTheme)
 			} else {
 				sc = l.Prefix + sc
+			}
+		}
+
+		// Add suffix
+		if l.Suffix != "" {
+			if t.ConsoleColorTheme != nil {
+				sc += ApplyConsoleColor(l.Suffix, level, *t.ConsoleColorTheme)
+			} else if t.HTMLColorTheme != nil {
+				sc += ApplyHTMLColor(l.Suffix, level, *t.HTMLColorTheme)
+			} else {
+				sc += l.Suffix
 			}
 		}
 
@@ -249,6 +261,17 @@ func (l *Logger) SetPrefix(s string) *Logger {
 	return l
 }
 
+/*
+	Set a suffix
+*/
+func (l *Logger) SetSuffix(s string) *Logger {
+	l.Suffix = s
+	return l
+}
+
+/*
+	Attach a function
+*/
 func (l *Logger) AttachFunction(level int, function func(string)) {
 	switch level {
 	case Silly:
