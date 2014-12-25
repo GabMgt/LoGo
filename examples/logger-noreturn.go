@@ -5,8 +5,7 @@ package main
 */
 
 import (
-	".."
-	// logo "github.com/nurza/logo"
+	logo "github.com/nurza/logo"
 )
 
 func main() {

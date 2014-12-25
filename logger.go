@@ -46,8 +46,102 @@ type Logger struct {
 	Log something with a parameterizable logging level
 */
 func (l *Logger) Log(level int, args ...interface{}) {
-	args = append(args, "\n")
-	l.LogNR(level, args...)
+	var s string = ""                 // The formated string that will be used for logging
+	var sc string = ""                // The formated string with color
+	var attachedFunction func(string) // Attached function
+
+	// Check if the logging level is enabled
+	switch level {
+	case Silly:
+		if !l.SillyL {
+			return
+		}
+	case Debug:
+		if !l.DebugL {
+			return
+		}
+	case Verbose:
+		if !l.VerboseL {
+			return
+		}
+	case Info:
+		if !l.InfoL {
+			return
+		}
+	case Warn:
+		if !l.WarnL {
+			return
+		}
+	case Error:
+		if !l.ErrorL {
+			return
+		}
+	case Critical:
+		if !l.CriticalL {
+			return
+		}
+	}
+
+	// Format the message
+	for _, v := range args {
+		s += fmt.Sprintf("%v ", v)
+	}
+	if len(s) > 0 {
+		s = s[:len(s)-1]
+	} else {
+		s = ""
+	}
+
+	// List all transports to apply color, prefix and time
+	for _, t := range l.Transports {
+		sc = s
+
+		// Add prefix
+		if l.Prefix != "" {
+			sc = l.Prefix + sc
+		}
+
+		// Add suffix
+		if l.Suffix != "" {
+			sc += l.Suffix
+		}
+
+		// Apply color
+		if t.ConsoleColorTheme != nil {
+			sc = ApplyConsoleColor(sc, level, *t.ConsoleColorTheme)
+		} else if t.HTMLColorTheme != nil {
+			sc = ApplyHTMLColor(sc, level, *t.HTMLColorTheme)
+		}
+
+		// Add time
+		if l.Time != "" {
+			sc = time.Now().Format(l.Time) + " " + sc
+		}
+
+		// Call the transport Write() function
+		t.Write(&t, sc+"\n")
+
+		// Call the attached function if exists
+		switch level {
+		case Silly:
+			attachedFunction = l.SillyAttachedFunction
+		case Debug:
+			attachedFunction = l.DebugAttachedFunction
+		case Verbose:
+			attachedFunction = l.VerboseAttachedFunction
+		case Info:
+			attachedFunction = l.InfoAttachedFunction
+		case Warn:
+			attachedFunction = l.WarnAttachedFunction
+		case Error:
+			attachedFunction = l.ErrorAttachedFunction
+		case Critical:
+			attachedFunction = l.CriticalAttachedFunction
+		}
+		if attachedFunction != nil {
+			attachedFunction(s)
+		}
+	}
 }
 
 /*
@@ -149,7 +243,6 @@ func (l *Logger) LogNR(level int, args ...interface{}) {
 		if attachedFunction != nil {
 			attachedFunction(s)
 		}
-
 	}
 }
 
