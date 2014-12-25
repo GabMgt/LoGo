@@ -46,6 +46,14 @@ type Logger struct {
 	Log something with a parameterizable logging level
 */
 func (l *Logger) Log(level int, args ...interface{}) {
+	args = append(args, "\n")
+	l.LogNR(level, args...)
+}
+
+/*
+	Log something with a parameterizable logging level without line return
+*/
+func (l *Logger) LogNR(level int, args ...interface{}) {
 	var s string = ""                 // The formated string that will be used for logging
 	var sc string = ""                // The formated string with color
 	var attachedFunction func(string) // Attached function
@@ -174,6 +182,37 @@ func (l *Logger) Error(args ...interface{}) {
 
 func (l *Logger) Critical(args ...interface{}) {
 	l.Log(Critical, args...)
+}
+
+/*
+	These functions call Log with the correct logging level without line return:
+*/
+func (l *Logger) SillyNR(args ...interface{}) {
+	l.LogNR(Silly, args...)
+}
+
+func (l *Logger) DebugNR(args ...interface{}) {
+	l.LogNR(Debug, args...)
+}
+
+func (l *Logger) VerboseNR(args ...interface{}) {
+	l.LogNR(Verbose, args...)
+}
+
+func (l *Logger) InfoNR(args ...interface{}) {
+	l.LogNR(Info, args...)
+}
+
+func (l *Logger) WarnNR(args ...interface{}) {
+	l.LogNR(Warn, args...)
+}
+
+func (l *Logger) ErrorNR(args ...interface{}) {
+	l.LogNR(Error, args...)
+}
+
+func (l *Logger) CriticalNR(args ...interface{}) {
+	l.LogNR(Critical, args...)
 }
 
 /*

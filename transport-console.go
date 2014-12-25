@@ -12,5 +12,5 @@ import (
 	Write function of the transport
 */
 func ConsoleWrite(t *Transport, s string) {
-	fmt.Println(s)
+	fmt.Print(s)
 }
