@@ -309,6 +309,37 @@ func (l *Logger) CriticalNR(args ...interface{}) {
 }
 
 /*
+	These functions call Log with the correct logging level with formatting:
+*/
+func (l *Logger) SillyF(s string, args ...interface{}) {
+	l.LogNR(Silly, fmt.Sprintf(s, args...))
+}
+
+func (l *Logger) DebugF(s string, args ...interface{}) {
+	l.LogNR(Debug, fmt.Sprintf(s, args...))
+}
+
+func (l *Logger) VerboseF(s string, args ...interface{}) {
+	l.LogNR(Verbose, fmt.Sprintf(s, args...))
+}
+
+func (l *Logger) InfoF(s string, args ...interface{}) {
+	l.LogNR(Info, fmt.Sprintf(s, args...))
+}
+
+func (l *Logger) WarnF(s string, args ...interface{}) {
+	l.LogNR(Warn, fmt.Sprintf(s, args...))
+}
+
+func (l *Logger) ErrorF(s string, args ...interface{}) {
+	l.LogNR(Error, fmt.Sprintf(s, args...))
+}
+
+func (l *Logger) CriticalF(s string, args ...interface{}) {
+	l.LogNR(Critical, fmt.Sprintf(s, args...))
+}
+
+/*
 	These functions disable or enable logging level :
 */
 func (l *Logger) DisableAllLevels() *Logger {

@@ -3,8 +3,6 @@ LoGo
 
 LoGo is a Golang logging library.
 
-It is inspired by : [Winston](https://github.com/flatiron/winston)
-
 License
 -------
 
