@@ -28,3 +28,10 @@ How to Use
 --------------
 
 See the "examples" directory.
+
+Features
+--------------
+
+- Console logging with color:
+
+![Console logging with color](http://files.nurza.fr/github/logo/console-color.png)
