@@ -130,17 +130,17 @@ var (
 .` + HTMLColorDarkGrayText + `{color: ` + HTMLColorDarkGrayTextCSS + `;}
 .` + HTMLColorWhiteText + `{color: ` + HTMLColorWhiteTextCSS + `;}
 
-.` + HTMLColorDefaultBackground + `{background-color: ` + HTMLColorDefaultBackgroundCSS + `;}
-.` + HTMLColorBlackBackground + `{background-color: ` + HTMLColorBlackBackgroundCSS + `;}
-.` + HTMLColorRedBackground + `{background-color: ` + HTMLColorRedBackgroundCSS + `;}
-.` + HTMLColorGreenBackground + `{background-color: ` + HTMLColorGreenBackgroundCSS + `;}
-.` + HTMLColorYellowBackground + `{background-color: ` + HTMLColorYellowBackgroundCSS + `;}
-.` + HTMLColorBlueBackground + `{background-color: ` + HTMLColorBlueBackgroundCSS + `;}
-.` + HTMLColorMagentaBackground + `{background-color: ` + HTMLColorMagentaBackgroundCSS + `;}
-.` + HTMLColorCyanBackground + `{background-color: ` + HTMLColorCyanBackgroundCSS + `;}
-.` + HTMLColorLightGrayBackground + `{background-color: ` + HTMLColorLightGrayBackgroundCSS + `;}
-.` + HTMLColorDarkGrayBackground + `{background-color: ` + HTMLColorDarkGrayBackgroundCSS + `;}
-.` + HTMLColorWhiteBackground + `{background-color: ` + HTMLColorWhiteBackgroundCSS + `;}
+.` + HTMLColorDefaultBackground + `{background-color: ` + HTMLColorDefaultBackgroundCSS + `;display:inline;}
+.` + HTMLColorBlackBackground + `{background-color: ` + HTMLColorBlackBackgroundCSS + `;display:inline;}
+.` + HTMLColorRedBackground + `{background-color: ` + HTMLColorRedBackgroundCSS + `;display:inline;}
+.` + HTMLColorGreenBackground + `{background-color: ` + HTMLColorGreenBackgroundCSS + `;display:inline;}
+.` + HTMLColorYellowBackground + `{background-color: ` + HTMLColorYellowBackgroundCSS + `;display:inline;}
+.` + HTMLColorBlueBackground + `{background-color: ` + HTMLColorBlueBackgroundCSS + `;display:inline;}
+.` + HTMLColorMagentaBackground + `{background-color: ` + HTMLColorMagentaBackgroundCSS + `;display:inline;}
+.` + HTMLColorCyanBackground + `{background-color: ` + HTMLColorCyanBackgroundCSS + `;display:inline;}
+.` + HTMLColorLightGrayBackground + `{background-color: ` + HTMLColorLightGrayBackgroundCSS + `;display:inline;}
+.` + HTMLColorDarkGrayBackground + `{background-color: ` + HTMLColorDarkGrayBackgroundCSS + `;display:inline;}
+.` + HTMLColorWhiteBackground + `{background-color: ` + HTMLColorWhiteBackgroundCSS + `;display:inline;}
 
 .` + HTMLColorBold + `{font-weight: bold;}
 .` + HTMLColorBolder + `{font-weight: bolder;}
@@ -175,13 +175,13 @@ func ApplyHTMLColor(s string, level int, c HTMLColorTheme) string {
 		ct = c.Critical
 	}
 
-	sr += "<div class=\""
+	sr += "<div><p class=\""
 	sr += ct.TextColor + " "               // Add text color
 	sr += ct.BackgroundColor + " "         // Add background color
 	sr += strings.Join(ct.TextEffect, " ") // Add effects
 	sr += "\">"
 	sr += s // Add the log
-	sr += "</div>\n"
+	sr += "</p></div>\n"
 
 	return sr // Return result
 }
