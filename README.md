@@ -35,3 +35,8 @@ Features
 - Console logging with color:
 
 ![Console logging with color](http://files.nurza.fr/github/logo/console-color.png)
+
+- Logging with timer:
+
+![Logging with timer](http://files.nurza.fr/github/logo/logo-timer.png)
+
