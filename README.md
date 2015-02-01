@@ -34,7 +34,7 @@ Features
 
 - Console logging with color:
 
-```
+```go
 func main() {
 	var l logo.Logger                 // Create a simple Logger
 	t := l.AddTransport(logo.Console) // Add a transport: Console
@@ -55,7 +55,7 @@ func main() {
 
 - Logging with timer:
 
-```
+```go
 func main() {
 	var l logo.Logger                  // Create a simple Logger
 	t := l.AddTransport(logo.Console)  // Add a transport: Console
