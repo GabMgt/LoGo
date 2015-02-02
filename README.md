@@ -29,8 +29,33 @@ How to Use
 
 See the "examples" directory.
 
-Features
+Examples
 --------------
+
+
+```go
+type SimpleStructure struct {
+	A string
+	B bool
+	C int
+	D float64
+	F byte
+}
+
+func main() {
+	logo.Log(true)                                                 // bool
+	logo.Log(42)                                                   // int
+	logo.Log(42.42)                                                // float64
+	logo.Log('A')                                                  // byte
+	logo.Log(SimpleStructure{"Hello World", true, 42, 42.42, 'A'}) // Structure
+	logo.Log("Hello", true, 42, "World")                           // Mixed
+
+	logo.Log("Hello", "World", "!") // Is the same as :
+	logo.Log("Hello World !")
+}
+```
+
+![Console logging with color](http://files.nurza.fr/github/logo/simple-console-log.png)
 
 - Console logging with color:
 
@@ -51,7 +76,7 @@ func main() {
 }
 ```
 
-![Console logging with color](http://files.nurza.fr/github/logo/console-color.png)
+![Console logging with color](http://files.nurza.fr/github/logo/logger-console-color.png)
 
 - Logging with timer:
 
@@ -73,5 +98,5 @@ func main() {
 }
 ```
 
-![Logging with timer](http://files.nurza.fr/github/logo/logo-timer.png)
+![Logging with timer](http://files.nurza.fr/github/logo/logger-addtime.png)
 
