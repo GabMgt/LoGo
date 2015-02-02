@@ -32,6 +32,7 @@ See the "examples" directory.
 Examples
 --------------
 
+- Simple console logging
 
 ```go
 type SimpleStructure struct {
