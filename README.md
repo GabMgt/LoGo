@@ -56,7 +56,22 @@ func main() {
 }
 ```
 
-![Console logging with color](http://files.nurza.fr/github/logo/simple-console-log.png)
+![Simple console logging](http://files.nurza.fr/github/logo/simple-console-log.png)
+
+- Console logging
+
+```go
+func main() {
+	var l logo.Logger            // Create a simple Logger
+	l.AddTransport(logo.Console) // Add a transport: Console
+	l.EnableAllLevels()          // Enable all logging levels
+
+	l.Log(logo.Info, "Hello World !") // This is the same as:
+	l.Info("Hello World !")
+}
+```
+
+![Console logging](http://files.nurza.fr/github/logo/logger-console.png)
 
 - Console logging with color:
 
