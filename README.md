@@ -86,8 +86,6 @@ func main() {
 }
 ```
 
-![File logging](http://files.nurza.fr/github/logo/logger-file.png)
-
 - Console logging with color:
 
 ```go
