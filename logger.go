@@ -2,6 +2,8 @@ package logo
 
 import (
 	"fmt"
+	"runtime"
+	"strings"
 	"time"
 )
 
@@ -40,6 +42,7 @@ type Logger struct {
 	WarnAttachedFunction     func(string)
 	ErrorAttachedFunction    func(string)
 	CriticalAttachedFunction func(string)
+	GoRoutineId              bool
 }
 
 /*
@@ -111,6 +114,11 @@ func (l *Logger) Log(level int, args ...interface{}) {
 			sc = ApplyConsoleColor(sc, level, *t.ConsoleColorTheme)
 		} else if t.HTMLColorTheme != nil {
 			sc = ApplyHTMLColor(sc, level, *t.HTMLColorTheme)
+		}
+
+		// Add Go routine id prefix
+		if l.GoRoutineId == true {
+			sc = "[" + GoRoutineID() + "]" + " " + sc
 		}
 
 		// Add time
@@ -213,6 +221,11 @@ func (l *Logger) LogNR(level int, args ...interface{}) {
 			sc = ApplyConsoleColor(sc, level, *t.ConsoleColorTheme)
 		} else if t.HTMLColorTheme != nil {
 			sc = ApplyHTMLColor(sc, level, *t.HTMLColorTheme)
+		}
+
+		// Add Go routine id prefix
+		if l.GoRoutineId == true {
+			sc = "[" + GoRoutineID() + "]" + " " + sc
 		}
 
 		// Add time
@@ -440,4 +453,14 @@ func (l *Logger) AttachFunction(level int, function func(string)) {
 	case Critical:
 		l.CriticalAttachedFunction = function
 	}
+}
+
+/*
+	Return the current go routine id
+*/
+func GoRoutineID() string {
+	var buf [64]byte
+	n := runtime.Stack(buf[:], false)
+	idField := strings.Fields(strings.TrimPrefix(string(buf[:n]), "goroutine "))[0]
+	return idField
 }
