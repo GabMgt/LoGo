@@ -5,6 +5,8 @@ import (
 	"runtime"
 	"strings"
 	"time"
+
+	"github.com/huandu/goroutine"
 )
 
 /*
@@ -459,8 +461,5 @@ func (l *Logger) AttachFunction(level int, function func(string)) {
 	Return the current go routine id
 */
 func GoRoutineID() string {
-	var buf [64]byte
-	n := runtime.Stack(buf[:], false)
-	idField := strings.Fields(strings.TrimPrefix(string(buf[:n]), "goroutine "))[0]
-	return idField
+	return fmt.Sprintf("%d", goroutine.GoroutineId())
 }
