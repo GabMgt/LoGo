@@ -2,8 +2,6 @@ package logo
 
 import (
 	"fmt"
-	"runtime"
-	"strings"
 	"time"
 
 	"github.com/huandu/goroutine"
