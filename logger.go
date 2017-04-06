@@ -1,6 +1,7 @@
 package logo
 
 import (
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -99,35 +100,76 @@ func (l *Logger) Log(level int, args ...interface{}) {
 	for _, t := range l.Transports {
 		sc = s
 
-		// Add prefix
-		if l.Prefix != "" {
-			sc = l.Prefix + sc
-		}
+		if t.JSONFormatted {
+			var jsonLine JSONFormatted
 
-		// Add suffix
-		if l.Suffix != "" {
-			sc += l.Suffix
-		}
+			// Add prefix
+			if l.Prefix != "" {
+				jsonLine.Prefix = l.Prefix
+			}
 
-		// Apply color
-		if t.ConsoleColorTheme != nil {
-			sc = ApplyConsoleColor(sc, level, *t.ConsoleColorTheme)
-		} else if t.HTMLColorTheme != nil {
-			sc = ApplyHTMLColor(sc, level, *t.HTMLColorTheme)
-		}
+			// Add suffix
+			if l.Suffix != "" {
+				jsonLine.Suffix = l.Suffix
+			}
 
-		// Add Go routine id prefix
-		if l.GoRoutineId == true {
-			sc = "[" + GoRoutineID() + "]" + " " + sc
-		}
+			// Add level
+			jsonLine.Level = LevelToString(level)
 
-		// Add time
-		if l.Time != "" {
-			sc = time.Now().Format(l.Time) + " " + sc
-		}
+			// Add Go routine id prefix
+			if l.GoRoutineId == true {
+				jsonLine.GoRoutineID = GoRoutineID()
+			}
 
-		// Call the transport Write() function
-		t.Write(&t, sc+"\n")
+			// Add time
+			if l.Time != "" {
+				jsonLine.Time = time.Now().Format(l.Time)
+			}
+
+			// Add text
+			jsonLine.Text = sc
+
+			// Json marshal
+			jsonData, err := json.Marshal(jsonLine)
+			if err != nil {
+				fmt.Println("Error when json marshalling ("+err.Error()+") original log:", sc)
+				return
+			}
+
+			// Call the transport Write() function
+			t.Write(&t, string(jsonData)+"\n")
+
+		} else {
+			// Add prefix
+			if l.Prefix != "" {
+				sc = l.Prefix + sc
+			}
+
+			// Add suffix
+			if l.Suffix != "" {
+				sc += l.Suffix
+			}
+
+			// Apply color
+			if t.ConsoleColorTheme != nil {
+				sc = ApplyConsoleColor(sc, level, *t.ConsoleColorTheme)
+			} else if t.HTMLColorTheme != nil {
+				sc = ApplyHTMLColor(sc, level, *t.HTMLColorTheme)
+			}
+
+			// Add Go routine id prefix
+			if l.GoRoutineId == true {
+				sc = "[" + GoRoutineID() + "]" + " " + sc
+			}
+
+			// Add time
+			if l.Time != "" {
+				sc = time.Now().Format(l.Time) + " " + sc
+			}
+
+			// Call the transport Write() function
+			t.Write(&t, sc+"\n")
+		}
 
 		// Call the attached function if exists
 		switch level {
@@ -460,4 +502,24 @@ func (l *Logger) AttachFunction(level int, function func(string)) {
 */
 func GoRoutineID() string {
 	return fmt.Sprintf("%d", goroutine.GoroutineId())
+}
+
+func LevelToString(level int) string {
+	switch level {
+	case Silly:
+		return "silly"
+	case Debug:
+		return "debug"
+	case Verbose:
+		return "verbose"
+	case Info:
+		return "info"
+	case Warn:
+		return "warn"
+	case Error:
+		return "error"
+	case Critical:
+		return "critical"
+	}
+	return "unknown level"
 }
