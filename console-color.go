@@ -91,7 +91,7 @@ var (
 	darkConsoleColorTheme = ConsoleColorTheme{
 		ConsoleColorAspect{ConsoleColorDarkGrayText, ConsoleColorDefaultBackground, []string{}},            // Silly
 		ConsoleColorAspect{ConsoleColorDefaultText, ConsoleColorDefaultBackground, []string{}},             // Debug
-		ConsoleColorAspect{ConsoleColorLightGreenText, ConsoleColorDefaultBackground, []string{}},          // Verbose
+		ConsoleColorAspect{ConsoleColorGreenText, ConsoleColorDefaultBackground, []string{}},               // Verbose
 		ConsoleColorAspect{ConsoleColorLightBlueText, ConsoleColorDefaultBackground, []string{}},           // Info
 		ConsoleColorAspect{ConsoleColorLightYellowText, ConsoleColorDefaultBackground, []string{}},         // Warn
 		ConsoleColorAspect{ConsoleColorLightRedText, ConsoleColorDefaultBackground, []string{}},            // Error
