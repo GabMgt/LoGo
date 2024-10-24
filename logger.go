@@ -4,8 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"time"
-
-	"github.com/huandu/goroutine"
 )
 
 /*
@@ -43,7 +41,6 @@ type Logger struct {
 	WarnAttachedFunction     func(string)
 	ErrorAttachedFunction    func(string)
 	CriticalAttachedFunction func(string)
-	GoRoutineId              bool
 }
 
 /*
@@ -116,11 +113,6 @@ func (l *Logger) Log(level int, args ...interface{}) {
 			// Add level
 			jsonLine.Level = LevelToString(level)
 
-			// Add Go routine id prefix
-			if l.GoRoutineId == true {
-				jsonLine.GoRoutineID = GoRoutineID()
-			}
-
 			// Add time
 			if l.Time != "" {
 				jsonLine.Time = time.Now().Format(l.Time)
@@ -155,11 +147,6 @@ func (l *Logger) Log(level int, args ...interface{}) {
 				sc = ApplyConsoleColor(sc, level, *t.ConsoleColorTheme)
 			} else if t.HTMLColorTheme != nil {
 				sc = ApplyHTMLColor(sc, level, *t.HTMLColorTheme)
-			}
-
-			// Add Go routine id prefix
-			if l.GoRoutineId == true {
-				sc = "[" + GoRoutineID() + "]" + " " + sc
 			}
 
 			// Add time
@@ -263,11 +250,6 @@ func (l *Logger) LogNR(level int, args ...interface{}) {
 			sc = ApplyConsoleColor(sc, level, *t.ConsoleColorTheme)
 		} else if t.HTMLColorTheme != nil {
 			sc = ApplyHTMLColor(sc, level, *t.HTMLColorTheme)
-		}
-
-		// Add Go routine id prefix
-		if l.GoRoutineId == true {
-			sc = "[" + GoRoutineID() + "]" + " " + sc
 		}
 
 		// Add time
@@ -495,13 +477,6 @@ func (l *Logger) AttachFunction(level int, function func(string)) {
 	case Critical:
 		l.CriticalAttachedFunction = function
 	}
-}
-
-/*
-	Return the current go routine id
-*/
-func GoRoutineID() string {
-	return fmt.Sprintf("%d", goroutine.GoroutineId())
 }
 
 func LevelToString(level int) string {

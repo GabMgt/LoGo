@@ -29,7 +29,6 @@ type JSONFormatted struct {
 	Prefix      string `json:"prefix,omitempty"`
 	Suffix      string `json:"suffix,omitempty"`
 	Level       string `json:"level"`
-	GoRoutineID string `json:"goroutineid,omitempty"`
 	Time        string `json:"time,omitempty"`
 	Text        string `json:"text"`
 }

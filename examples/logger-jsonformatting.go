@@ -18,7 +18,6 @@ func main() {
 	l.SetPrefix("{ ")                                // Set Prefix
 	l.SetSuffix(" }")                                // Set Suffix
 	l.AddTime("2006-01-02 15:04:05")                 // Add time template
-	l.GoRoutineId = true                             // Add Go routine id
 
 	l.Silly("Silly")
 	l.Debug("Debug")
